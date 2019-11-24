@@ -11,31 +11,27 @@ import java.util.Map;
 @Repository
 @Qualifier("fakeData")
 public class FakeStudentDao implements StudentDao {
-    private static Map<Integer, Student> students;
-
-    static {
-        students = new HashMap<Integer, Student>() {
-            {
-                put(1, new Student(1, "Said", "Computer Science"));
-                put(2, new Student(2, "Alex U", "Finance"));
-                put(3, new Student(3, "Anna", "Maths"));
-            }
-        };
-    }
+    private Map<Integer, Student> students = new HashMap<Integer, Student>() {
+        {
+            put(1, new Student(1, "Said", "Computer Science"));
+            put(2, new Student(2, "Alex U", "Finance"));
+            put(3, new Student(3, "Anna", "Maths"));
+        }
+    };
 
     @Override
     public Collection<Student> getAllStudents(){
-        return FakeStudentDao.students.values();
+        return this.students.values();
     }
 
     @Override
     public Student getStudentById(int id){
-        return FakeStudentDao.students.get(id);
+        return this.students.get(id);
     }
 
     @Override
     public void removeStudentById(int id) {
-        FakeStudentDao.students.remove(id);
+        this.students.remove(id);
     }
 
     @Override
@@ -49,6 +45,6 @@ public class FakeStudentDao implements StudentDao {
 
     @Override
     public void insertStudent(Student student) {
-        FakeStudentDao.students.put(student.getId(), student);
+        this.students.put(student.getId(), student);
     }
 }
